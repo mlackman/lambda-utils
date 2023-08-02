@@ -1,0 +1,26 @@
+{
+  "name": "lambda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc",
+    "deploy": "npm run deploy:install && npm run deploy:build && npm run deploy:install-prod && npm run deploy:bundle && npm run deploy:deploy",
+    "deploy:install": "npm install",
+    "deploy:build": "npm run build",
+    "deploy:install-prod": "npm install --omit=dev",
+    "deploy:bundle": "mkdir -p infra/bundle && zip -r infra/bundle/asset.zip ./dist ./node_modules",
+    "deploy:deploy": "npm run deploy --prefix infra"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.119",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "lambda-utils": "file:../../lambda-utils"
+  }
+}
